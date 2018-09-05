@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="css/main02.css">
+    <script>
+    window.onload = function(){
+        // alert(1)
+        // 按钮单击，把用户在表单控件输入的数据，显示到右侧，下拉菜单能切换风格-- 换css
+        // 按钮
+        var oSetcard = document.getElementById('setcard')
+
+        // 表单控件
+        var oInp01 = document.getElementById('input01')
+        var oInp02 = document.getElementById('input02')
+        var oInp03 = document.getElementById('input03')
+        var oInp04 = document.getElementById('input04')
+        var oInp05 = document.getElementById('input05')
+        var oInp06 = document.getElementById('input06')
+        var oInp07 = document.getElementById('input07')
+
+        // 右侧内容显示区域
+        var oCardWrap = document.getElementById('card_wrap')
+        oSetcard.onclick = function(){
+            // 名字和职位是必填项
+            if(oInp01.value == '' || oInp02.value == '')
+            {
+                alert('请输入内容')
+                return
+            }
+            // 1、得到用户输入的数据  value="" html属性 
+            // alert(oInp01.value)
+            var str = '<div class="p01">'
+                +
+                oInp01.value+'<em>'+oInp02.value+'</em></div><div class="p02"><p class="company">银河科技信息技术有限公司</p><p>手机：1808888888</p><p>email：dasan@126.com</p><p>地址：中关村银河大厦B座2603</p></div>'
+            // 设置右侧内容显示区域  的  内容是  str
+            oCardWrap.innerHTML = str
+
+            // 切换风格：如果下拉菜单选中第一个option表示是风格1（下拉菜单的value==0） ，右侧就得是风格1的css -- 换类名 -- 控制class属性
+            if(oInp07.value == 0){
+                oCardWrap.className = 'idcard01'
+            }
+            else if(oInp07.value == 1){
+                oCardWrap.className = 'idcard02'
+            }
+            else{
+                oCardWrap.className = 'idcard03'
+            }
+        }
+    }
+    </script>
+</head>
+<body>
+    <div class="set_con">
+        <div class="left_set">
+            <label>姓名：</label>
+            <input type="text" id="input01">
+            <label>职位：</label>
+            <input type="text" id="input02">
+            <label>公司名称：</label>
+            <input type="text" id="input03">
+            <label>手机：</label>
+            <input type="text" id="input04">
+            <label>email：</label>
+            <input type="text" id="input05">
+            <label>地址：</label>
+            <input type="text" id="input06">
+            <label>风格：</label>
+            <select  id="input07">
+                <option value="0">风格一</option>
+                <option value="1">风格二</option>
+                <option value="2">风格三</option>
+            </select>
+            <input type="button" value="设 置" class="setbtn" id="setcard">
+        </div>
+        <div class="right_show">
+            <div class="idcard01" id="card_wrap">
+                <div class="p01">张大山<em>产品经理</em></div>
+                <div class="p02">                    
+                    <p class="company">银河科技信息技术有限公司</p>
+                    <p>手机：1808888888</p>
+                    <p>email：dasan@126.com</p>
+                    <p>地址：中关村银河大厦B座2603</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
