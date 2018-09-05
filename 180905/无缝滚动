@@ -1,0 +1,48 @@
+window.onload = function(){
+    // alert(1)
+    // 1、默认自动左侧播放移动 多次定时 定位left  减小
+    var oList = document.getElementById('list')
+    var num = 0
+    var oTimer = null
+    var speed = -5
+    // ****** 一份产品移动，另外一份产品做区域填充
+    oList.innerHTML += oList.innerHTML
+    // oList.innerHTML = oList.innerHTML + oList.innerHTML
+    oTimer = setInterval(fnMove, 30)
+    function fnMove(){
+        // 改变定位的left取值  随之50毫秒递减  减小
+        num += speed
+        // 如果left<-1000 回到left为0的状态
+        if(num<-1000)
+        {
+            num = 0
+        }
+        // 如果left大于0，回到left为-1000
+        if(num>0)
+        {
+            num =-1000
+        }
+        oList.style.left = num +'px'
+    }
+
+    // 2、箭头单击改变运动方向 单击事件  增量减量 存值speed
+    var oBtn01 = document.getElementById('btn01')
+    var oBtn02 = document.getElementById('btn02')
+    oBtn02.onclick = function(){
+        speed = 5   
+    }
+    oBtn01.onclick = function(){
+        speed = -5   
+    }
+
+
+    // 3、鼠标移入停止播放停止定时器，鼠标离开继续播放启动定时器
+    var oSlide = document.getElementById('slide')
+    oSlide.onmouseover = function(){
+        clearInterval(oTimer)
+        oTimer = null
+    }
+    oSlide.onmouseout = function(){
+        oTimer = setInterval(fnMove, 30)
+    }
+}
