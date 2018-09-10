@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>todolist</title>
+	<style type="text/css">
+		.list_con{
+			width:600px;
+			margin:50px auto 0;
+		}
+		.inputtxt{
+			width:550px;
+			height:30px;
+			border:1px solid #ccc;
+			padding:0px;
+			text-indent:10px;			
+		}
+		.inputbtn{
+			width:40px;
+			height:32px;
+			padding:0px;
+			border:1px solid #ccc;
+		}
+		.list{
+			margin:0;
+			padding:0;
+			list-style:none;
+			margin-top:20px;
+		}
+		.list li{
+			height:40px;
+			line-height:40px;
+			border-bottom:1px solid #ccc;
+		}
+
+		.list li span{
+			float:left;
+		}
+
+		.list li a{
+			float:right;
+			text-decoration:none;
+			margin:0 10px;
+		}
+	</style>
+	<script type="text/javascript" src="js/jquery-1.12.4.min.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		$('#btn1').click(function(){
+			var vals = $('#txt1').val()
+			if(vals == "")
+			{
+				alert('请输入内容')
+				return
+			}
+
+			//javascript:; 表示a的href不执行原有的跳转功能，具体执行的功能看ks如何绑定
+			var $li = $('<li><span>'+vals+'</span><a href="javascript:;" class="up"> ↑ </a><a href="javascript:;" class="down"> ↓ </a><a href="javascript:;" class="del">删除</a></li>')
+
+			$li.prependTo( $('#list') )
+			$('#txt1').val('')
+
+		})
+		// $('a').click(function(){ // 不能给未来元素绑定命令
+		// 	alert(1)
+		// })
+		$('#list').delegate('a', 'click', function(){
+			var myclass = $(this).prop('class')
+			if(myclass == 'del')
+			{
+				$(this).parent().remove()
+			}
+			else if(myclass == 'up')
+			{
+				if($(this).parent().index() == 0)
+				{
+					alert('这已经是第一个了')
+					return 
+				}
+				$(this).parent().insertBefore( $(this).parent().prev())
+			}
+			else if(myclass == 'down')
+			{
+				// if($(this).parent().index() == $('#list').children().length-1)
+				if($(this).parent().nextAll().length == 0)
+				{
+					alert('这已经是最后一个了')
+					return
+				}
+				$(this).parent().insertAfter( $(this).parent().next() )
+			}
+		})
+
+
+
+
+	})
+
+	// 条件第二种：如果前面没有别的标签（前面的标签prevAll的长度==0），这个就是第一个；如果后面没有别的标签了（后面的标签:后面的所有标签nextAll  的长度==0），这个就是最后一个了
+	</script>	
+</head>
+<body>
+
+	<div class="list_con">
+	<h2>To do list</h2>
+		<input type="text" name="" id="txt1" class="inputtxt">
+		<input type="button" name="" value="增加" id="btn1" class="inputbtn">
+		
+		<ul id="list" class="list">
+
+			<li><span>学习html</span><a href="javascript:;" class="up"> ↑ </a><a href="javascript:;" class="down"> ↓ </a><a href="javascript:;" class="del">删除</a></li>
+			<li><span>学习css</span><a href="javascript:;" class="up"> ↑ </a><a href="javascript:;" class="down"> ↓ </a><a href="javascript:;" class="del">删除</a></li>
+			<li><span>学习javascript</span><a href="javascript:;" class="up"> ↑ </a><a href="javascript:;" class="down"> ↓ </a><a href="javascript:;" class="del">删除</a></li>
+
+		</ul>
+
+	</div>
+</body>
+</html>
